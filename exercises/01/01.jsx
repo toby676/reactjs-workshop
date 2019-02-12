@@ -29,9 +29,13 @@ import React from 'react';
 //        Available    =>    'far fa-user'
 //        Busy         =>    'fas fa-user'
 function StatusBlock(props) {
+  const {status, stat} = props;
+
   return (
     <div>
-      <i className='fas fa-user-slash' /> {props.status} {props.stat}
+      <div>{status}</div>
+      <div>{stat}</div>
+      <i className='fas fa-user-slash' />
     </div>
   );
 }

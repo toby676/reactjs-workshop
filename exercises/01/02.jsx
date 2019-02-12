@@ -47,16 +47,16 @@ function StatusBlock(props) {
   // You should use these in your component to ensure the
   // correct icon and colour are displayed based on the
   // status passed into our component.
-  const classNames = getClassNameVariants(props.status);
+  const {status, stat} = props;
+  const classNames = getClassNameVariants(status);
+  const {colour, icon} = classNames;
 
   return (
-    <Wrapper colorClassName={classNames.colour}>
-      <Stat>
-        {props.stat}
-      </Stat>
+    <Wrapper colorClassName={colour}>
+      <Stat>{stat}</Stat>
       <StatusContainer>
-        <StatusIcon iconClassName={classNames.icon} />
-        <StatusLabel label={props.status} />
+        <StatusIcon iconClassName={icon} />
+        <StatusLabel label={status} />
       </StatusContainer>
     </Wrapper>
   );
