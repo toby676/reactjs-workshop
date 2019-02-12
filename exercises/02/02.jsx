@@ -25,10 +25,26 @@ import React from 'react';
 // ------
 // 🐨     You can COPY your solution from Exercise 02/01 as a starting point!
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    // Don't call this.setState() here!
+    this.state = { team: '' };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ team: event.target.value })
+  }
+
   render() {
     return (
       <div className="w-1/4">
-        Start HERE!
+        <input 
+          className="appearance-none block w-full bg-grey-lighter text-grey-darker border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" 
+          value={this.state.team}
+          onChange={this.handleChange}
+        />
+        Current team: {this.state.team} 
       </div>
     );
   }

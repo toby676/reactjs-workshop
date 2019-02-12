@@ -25,7 +25,6 @@ import PropTypes from 'prop-types';
 // ✅    Your component's state object should contain a 'timestamp' node
 // ✅    Your component's state object should initialise the 'timestamp' node to either
 //        the `datetimestamp` prop, or a `now` data object.
-// ✅    Your component should render an input DOM element to accept text input from the user
 // ✅    Your component should re-render the time display after every second
 //
 // Tips
@@ -36,10 +35,26 @@ import PropTypes from 'prop-types';
 // 🐨  You can initialise state and class properties using any of the valid syntax options; this project is setup
 //     to support "all" of the currently popular appraoches.
 class Timer extends React.Component {
+  constructor(props) {
+    super(props);
+    // Don't call this.setState() here!
+    this.state = { timestamp: props.datetimestamp 
+                   ? new Date(props.datetimestamp) 
+                   : new Date() };
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => this.setState({ timestamp: new Date() }), 1000);
+  }
+
+  componentWillUnmount() {
+     clearInterval(this.interval);
+  }
+
   render() {
     return (
       <div>
-        Start HERE!
+        Time: {this.state.timestamp.toLocaleTimeString()}
       </div>
     );
   }
