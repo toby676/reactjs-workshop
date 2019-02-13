@@ -46,7 +46,11 @@ class Timer extends React.Component {
   }
 
   componentDidMount() {
-    this.interval = setInterval(() => this.setState({ timestamp: new Date() }), 1000);
+    this.interval = setInterval(() => {
+      this.setState({ 
+        timestamp: new Date()
+      });
+    }, 1000);
   }
 
   componentWillUnmount() {
@@ -54,9 +58,10 @@ class Timer extends React.Component {
   }
 
   render() {
+    const { timestamp } = this.state;
     return (
       <div>
-        Time: {this.state.timestamp.toLocaleTimeString()}
+        Time: {timestamp.toLocaleTimeString()}
       </div>
     );
   }
