@@ -52,9 +52,23 @@ import DataColumn from 'scenes/components/DataTable/DataTableRow/DataRowColumn';
 // 🐨  The specific requirement for the `id` attributes above, are purely to simplify the test implementation.
 class Row extends React.Component {
   render() {
+    const { team, functions } = this.props;
+    if (!team && !functions) {
+      return null;
+    }
+
     return (
       <div className="flex w-1/4">
-        Start HERE!
+        <DataColumn id='team'>
+          {team
+            ? team
+            : 'Unknown Team'}
+        </DataColumn>
+        <DataColumn id='functions'>
+          {functions && functions.length > 0
+            ? functions.join(', ')
+            : '-'}
+        </DataColumn>
       </div>
     );
   }

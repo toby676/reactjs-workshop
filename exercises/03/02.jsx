@@ -55,8 +55,9 @@ import DataColumn from 'scenes/components/DataTable/DataTableRow/DataRowColumn';
 // 🐨  Remember, `undefined` is a special object in JS, which you can use to 'short-circuit' some expressions
 // 🐨  The Row.propTypes (below) is a useful insight into the expected shape of your props
 class Row extends React.Component {
+
   render() {
-    const { className } = this.props;
+    const { team, functions, status, name, sources, className } = this.props;
     const css = ['flex', 'w-full'];
 
     if (className) {
@@ -67,7 +68,25 @@ class Row extends React.Component {
       // Note, there is a performance penalty using `.join()` inline,
       // but it's ok for our demo app.
       <div className={css.join(' ')}>
-        Start HERE!
+        <DataColumn id='name'>
+          {name || 'Unknown Consultant'}
+        </DataColumn>
+        <DataColumn id='team'>
+          {team || 'Unknown Team'}
+        </DataColumn>
+        <DataColumn id='functions'>
+          {functions && functions.length > 0
+            ? functions.join(', ')
+            : '-'}
+        </DataColumn>
+        <DataColumn id='sources'>
+          {sources && sources.length > 0
+            ? sources.join(', ')
+            : '-'}
+        </DataColumn>
+        <DataColumn id='status'>
+          {status || 'Unknown Status'}
+        </DataColumn>
       </div>
     );
   }
