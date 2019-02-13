@@ -44,9 +44,10 @@ import PropTypes from 'prop-types';
 // 👩‍💻  Credit: Based on https://github.com/ReactTraining/react-workshop/
 export class App extends React.Component {
   render() {
+    const { x, y } = this.props.mouse;
     return (
       <div className="">
-        Start HERE!
+        ({x},{y})
       </div>
     );
   }
@@ -61,12 +62,31 @@ App.propTypes = {
 };
 
 // Define our HOC
-function withMouse() {
-  return (
-    <div>
-      Start HERE (HOC)!
-    </div>
-  );
+function withMouse(InputComponent) {
+  return class extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { 
+        x: 0,
+        y: 0
+      };
+      this.handleMouseMove = this.handleMouseMove.bind(this);
+    }
+
+    handleMouseMove(e) {
+      const { clientX, clientY } = e;
+      this.setState({ x: clientX, y: clientY });
+    }
+
+    render() {
+      const { x, y } = this.state;
+      return (
+        <div onMouseMove={this.handleMouseMove}>
+          <InputComponent mouse={{x, y}} />
+        </div>
+      )
+    }
+  };
 }
 
-export default App;
+export default withMouse(App);
