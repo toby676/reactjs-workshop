@@ -38,10 +38,19 @@ import DataRow from '../03/02';
 // 🐨  Some ReactJS good practices might be found in the console (NOTE: ReactJS only outputs these when using the ReactJS dev-build)
 // 🐨  The DataTable.propTypes (below) is a useful insight into the expected shape of your props
 class DataTable extends React.Component {
+
   render() {
+    const { data } = this.props;
+
     return (
       <div className="w-full">
-        Start HERE!
+        <DataTableHeading />
+        {Array.isArray(data) && data.length > 0 
+          ? data.map((item,index) =>
+              <DataRow key={`${item.name}-${index}`} {...item}/>
+            )
+          : 'No data to display'
+        }
       </div>
     );
   }
