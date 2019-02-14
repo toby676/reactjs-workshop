@@ -42,15 +42,13 @@ import PropTypes from 'prop-types';
 // 🐨  Remember, you HOC `props` are READ-ONLY, so you'll have to store the updates somewhere else to trigger a re-render
 //
 // 👩‍💻  Credit: Based on https://github.com/ReactTraining/react-workshop/
-export class App extends React.Component {
-  render() {
-    const { x, y } = this.props.mouse;
-    return (
-      <div className="">
-        ({x},{y})
-      </div>
-    );
-  }
+export function App(props) {
+  const { x, y } = props.mouse;
+  return (
+    <div className="">
+      ({x},{y})
+    </div>
+  );
 }
 
 // Add prop validation
@@ -63,7 +61,7 @@ App.propTypes = {
 
 // Define our HOC
 function withMouse(InputComponent) {
-  return class extends React.Component {
+  return class HOCComponent extends React.Component {
     constructor(props) {
       super(props);
       this.state = { 
@@ -79,10 +77,9 @@ function withMouse(InputComponent) {
     }
 
     render() {
-      const { x, y } = this.state;
       return (
         <div onMouseMove={this.handleMouseMove}>
-          <InputComponent mouse={{x, y}} />
+          <InputComponent {...this.props} mouse={this.state} />
         </div>
       )
     }
