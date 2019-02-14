@@ -38,9 +38,25 @@ import PropTypes from 'prop-types';
 // 🐨   Use the `onMouseMove` Synthetic DOM event to capture the current X and Y coords of the mouse, as before
 // 🐨   Your solution to the HOC exercise could be a good starting point
 export class MousePosition extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      x: 0,
+      y: 0
+    };
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+  }
+
+  handleMouseMove(e) {
+    const { clientX, clientY } = e;
+    this.setState({ x: clientX, y: clientY });
+
+  }
   render() {
     return (
-      null
+      <div onMouseMove={this.handleMouseMove}>
+        {this.props.children(this.state)}
+      </div>
     );
   }
 }
@@ -54,14 +70,16 @@ MousePosition.propTypes = {
   children: PropTypes.func,
 };
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        Start HERE!
-      </div>
-    );
-  }
+function App(props) {
+  return (
+    <MousePosition>
+      {mouse => (
+        <div>
+          ({mouse.x},{mouse.y})
+        </div>
+      )}
+    </MousePosition>
+  );
 }
 
 // Add prop validation
