@@ -51,11 +51,32 @@ import DataRow from '../03/02';
 //
 // CSS-in-JS Area
 // Add your CSS-in-JS components outside your component, here.
+const StyledCDiv = styled.div`
+  background-color: ${props => rgba(statusToColour[props.status], 0.15)};
+  border-bottom: 2px;
+  border-left: 4px;
+ `;
+
+const statusToColour = {
+  available: '#008744',
+  unavailable: '#D75400',
+  busy: '#90479B'
+}
+
 class StyledDataTable extends React.Component {
   render() {
+    const { data } = this.props;
     return (
       <div className="w-full">
-        Start HERE!
+        <DataTableHeading />
+        {Array.isArray(data) && data.length > 0 
+          ? data.map((item,index) =>
+            <StyledCDiv key={`${item.name}-${index}`} status={item.status}>
+              <DataRow {...item}/>
+            </StyledCDiv>
+            )
+          : 'No data to display'
+        }
       </div>
     );
   }
