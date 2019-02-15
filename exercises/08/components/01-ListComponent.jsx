@@ -12,13 +12,11 @@ import PropTypes from 'prop-types';
 import ListItem from './01-ListItemComponent';
 
 const List = ({
-  handleClick,
   values,
 }) => (
   <ul className="list-reset m-0 p-0 mt-5">
     {values.map((value, idx) => (
       <ListItem
-        handleClick={handleClick}
         index={idx}
         value={value}
         key={value}
@@ -28,8 +26,6 @@ const List = ({
 );
 
 List.propTypes = {
-  handleClick: PropTypes.func,
-  activeItem: PropTypes.number.isRequired,
   values: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 

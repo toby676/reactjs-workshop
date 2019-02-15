@@ -12,16 +12,14 @@ import { cx } from 'emotion';
 import { ActiveContext } from '../01'
 
 const ListItem = ({
-  handleClick,
   value,
   index,
 }) => (
   <ActiveContext.Consumer>
-    {({activeIndex}) => (
+    {({activeIndex, handleUpdateIndex}) => (
       <li
         role="presentation"
-        onClick={handleClick}
-        data-index={index}
+        onClick={() => handleUpdateIndex(index)}
         className={cx(
           'font-sans font-light text-sm text-white',
           'border-solid border-b-2 border-l-4',
@@ -40,7 +38,6 @@ const ListItem = ({
 );
 
 ListItem.propTypes = {
-  handleClick: PropTypes.func,
   index: PropTypes.number.isRequired,
   value: PropTypes.string.isRequired,
 };
