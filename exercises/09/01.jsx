@@ -48,22 +48,42 @@ import { createStore } from 'redux';
 // 🐨   [2] https://redux.js.org/api/createstore#createstorereducer-preloadedstate-enhancer
 
 // Define our Action type constants
-export const CONSULTANTS_FETCH_REQUEST = 'CONSULTANTS.FETCH.REQEST';
+export const CONSULTANTS_FETCH_REQUEST = 'CONSULTANTS.FETCH.REQUEST';
 export const CONSULTANTS_FETCH_COMPLETE = 'CONSULTANTS.FETCH.COMPLETE';
 
 // Define our Action Creators. These are used
 // to signal that we want an update made to our store.
-export const fetchConsultantData = null;
+export const fetchConsultantData = () => (
+  {
+    type: CONSULTANTS_FETCH_REQUEST,
+    payload: null,
+    meta: null,
+    error: false
+  }
+);
 
-export const fetchConsultantComplete = null;
+export const fetchConsultantComplete = (consultant_data) => (
+  {
+    type: CONSULTANTS_FETCH_COMPLETE,
+    payload: {data: consultant_data},
+    meta: null,
+    error: consultant_data instanceof Error
+  }
+);
 
 // Setup our reducer
-export function reducer(prevState, action) {
-  // to be completed
+export function reducer(prevState = [], action) {
+  switch(action.type) {
+    case CONSULTANTS_FETCH_COMPLETE:
+      return [].concat(action.payload.data || []);
+
+    default:
+      return prevState;
+  }
 }
 
 // Create our store
-const store = null;
+const store = createStore(reducer);
 
 // Export the store to our test suite
 export default store;
