@@ -54,7 +54,9 @@ import App from './components/01-App';
 function AppWrapper() {
   return (
     <div>
-      Start HERE!
+      <Provider store={store}>
+        <App />
+      </Provider>
     </div>
   );
 }

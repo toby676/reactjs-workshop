@@ -17,7 +17,7 @@ import DataTable from '../../04/01';
 function App(props) {
   return (
     <div>
-      Start HERE!
+      <DataTable data={props.consultantData} />
     </div>
   );
 }
@@ -32,7 +32,11 @@ App.propTypes = {
   })),
 };
 
-export const mapStateToProps = null;
+export const mapStateToProps = function(state) {
+  return {
+    consultantData: state
+  }
+};
 
-export default App;
+export default connect(mapStateToProps)(App);
 
