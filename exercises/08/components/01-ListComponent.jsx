@@ -13,14 +13,12 @@ import ListItem from './01-ListItemComponent';
 
 const List = ({
   handleClick,
-  activeItem,
   values,
 }) => (
   <ul className="list-reset m-0 p-0 mt-5">
     {values.map((value, idx) => (
       <ListItem
         handleClick={handleClick}
-        activeIndex={activeItem}
         index={idx}
         value={value}
         key={value}

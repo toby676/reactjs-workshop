@@ -52,7 +52,7 @@ import List from './components/01-ListComponent';
 // 🐨   You should ensure you export / import all the components you need across all file/component modules!
 // 🐨   Don't forget to update each component's `propTypes` definition as you modify the props they support/require!
 
-export const ActiveContext = {};
+export const ActiveContext = React.createContext( {activeIndex: 0} );
 
 class App extends React.Component {
   static propTypes = {
@@ -75,12 +75,12 @@ class App extends React.Component {
         <h2>Team names</h2>
 
         <p>Select a team to make it active.</p>
-
-        <List
-          handleClick={this.handleClick}
-          activeItem={this.state.activeIndex}
-          values={this.props.teamNames}
-        />
+        <ActiveContext.Provider value={{activeIndex: this.state.activeIndex}}>
+          <List
+            handleClick={this.handleClick}
+            values={this.props.teamNames}
+          />
+        </ActiveContext.Provider>
       </div>
     );
   }
